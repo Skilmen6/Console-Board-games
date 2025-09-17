@@ -2,7 +2,7 @@
 
 namespace Console_Checkers
 {
-    public static class Checkers
+    public static class Start
     {
         public static void Main()
         {
