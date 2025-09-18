@@ -12,22 +12,36 @@ namespace Console_Checkers
 
             board.Draw();
 
-            string? choice = Console.ReadLine();
+            string? consoleChoiceString = null;
             Position selectedPosition;
 
             while(!board.CheckForWin())
             {
-                switch (choice)
-                {
-                    case "help":
-                        break;
+                consoleChoiceString = Console.ReadLine();
 
-                    case "select":
-                        string test = choice.Substring(0, 4);
-                        Console.WriteLine(test);
-                        choice = null;
-                        break;
+                if (consoleChoiceString == null)
+                {
+                    return;
                 }
+
+                string[] consoleChoice = consoleChoiceString.Split(" ");
+
+                foreach(string choice in consoleChoice)
+                {
+                    Console.WriteLine(choice);
+                }
+
+                //switch (choice)
+                //{
+                //    case "help":
+                //        break;
+
+                //    case "select":
+                //        string test = choice.Substring(0, 4);
+                //        Console.WriteLine(test);
+                //        choice = null;
+                //        break;
+                //}
             }
         }
     }
