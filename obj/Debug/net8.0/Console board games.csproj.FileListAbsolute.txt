@@ -1,0 +1,15 @@
+C:\Learning\Console board games\bin\Debug\net8.0\Console board games.exe
+C:\Learning\Console board games\bin\Debug\net8.0\Console board games.deps.json
+C:\Learning\Console board games\bin\Debug\net8.0\Console board games.runtimeconfig.json
+C:\Learning\Console board games\bin\Debug\net8.0\Console board games.dll
+C:\Learning\Console board games\bin\Debug\net8.0\Console board games.pdb
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.GeneratedMSBuildEditorConfig.editorconfig
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.AssemblyInfoInputs.cache
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.AssemblyInfo.cs
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.csproj.CoreCompileInputs.cache
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.sourcelink.json
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.dll
+C:\Learning\Console board games\obj\Debug\net8.0\refint\Console board games.dll
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.pdb
+C:\Learning\Console board games\obj\Debug\net8.0\Console board games.genruntimeconfig.cache
+C:\Learning\Console board games\obj\Debug\net8.0\ref\Console board games.dll

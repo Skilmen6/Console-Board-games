@@ -2,6 +2,7 @@
 {
     public interface ITeam
     {
-
+        string Name { get; }
+        int Pieces { get; set; }
     }
 }

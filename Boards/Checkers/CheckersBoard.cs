@@ -1,6 +1,9 @@
-﻿namespace Console_Checkers.Boards.Basic
+﻿using Console_Checkers.Teams;
+using Console_Checkers.Teams.Checkers;
+
+namespace Console_Checkers.Boards.Basic
 {
-    public class CheckersBoard
+    public class CheckersBoard : IBoard
     {
         public CheckersBoard()
         {
@@ -8,27 +11,30 @@
         }
 
         public string[][] board = [[]];
-        public int whitePieces = 0;
-        public int blackPieces = 0;
 
-        public CheckersBoard Reset()
+        CheckersBlack bTeam = new();
+        CheckersWhite wTeam = new();
+
+        public string Empty => "e";
+        public string EmptyDraw => " .";
+
+        public void Reset()
         {
             board = [
-                ["e", "B", "e", "B", "e", "B", "e", "B", "e", "B"],
-                ["B", "e", "B", "e", "B", "e", "B", "e", "B", "e"],
-                ["e", "B", "e", "B", "e", "B", "e", "B", "e", "B"],
-                ["B", "e", "B", "e", "B", "e", "B", "e", "B", "e"],
-                ["e", "e", "e", "e", "e", "e", "e", "e", "e", "e"],
-                ["e", "e", "e", "e", "e", "e", "e", "e", "e", "e"],
-                ["e", "W", "e", "W", "e", "W", "e", "W", "e", "W"],
-                ["W", "e", "W", "e", "W", "e", "W", "e", "W", "e"],
-                ["e", "W", "e", "W", "e", "W", "e", "W", "e", "W"],
-                ["W", "e", "W", "e", "W", "e", "W", "e", "W", "e"],
+                [Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece],
+                [bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty],
+                [Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece],
+                [bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty],
+                [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
+                [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
+                [Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece],
+                [wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty],
+                [Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece],
+                [wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty],
             ];
 
-            whitePieces = 20;
-            blackPieces = 20;
-            return this;
+            bTeam.Pieces = 20;
+            wTeam.Pieces = 20;
         }
 
         public void Draw()
@@ -40,25 +46,46 @@
                 output += i;
                 for (int ii = 0; ii < board[i].Length; ii++)
                 {
-                    switch (board[i][ii])
+                    if (board[i][ii] == wTeam.piece)
                     {
-                        case "W":
-                            output += " w";
-                            break;
-                        case "B":
-                            output += " b";
-                            break;
-                        case "e":
-                            output += " .";
-                            break;
-                        default:
-                            output += " " + board[i][ii];
-                            break;
+                        output += wTeam.pieceDraw;
+                    }
+                    else if (board[i][ii] == bTeam.piece)
+                    {
+                        output += bTeam.pieceDraw;
+                    }
+                    else if (board[i][ii] == Empty)
+                    {
+                        output += EmptyDraw;
+                    }
+                    else
+                    {
+                        output += " " + board[i][ii];
                     }
                 }
                 output += "\n";
             }
             Console.WriteLine(output);
+        }
+
+        public bool CheckForWin()
+        {
+            if (bTeam.Pieces <= 0)
+            {
+                Console.WriteLine("White has won");
+                return true;
+            }
+            if (wTeam.Pieces <= 0)
+            {
+                Console.WriteLine("Black has won");
+                return true;
+            }
+            return false;
+        }
+
+        public void CaptureChecks(ITeam currentTeam)
+        {
+
         }
     }
 }
