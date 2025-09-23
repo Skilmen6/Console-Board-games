@@ -12,37 +12,85 @@ namespace Console_Checkers
 
             board.Draw();
 
-            string? consoleChoiceString = null;
-            Position selectedPosition;
+            string? choiceString = null;
+            Position? selectedPosition = null;
 
             while(!board.CheckForWin())
             {
-                consoleChoiceString = Console.ReadLine();
+                choiceString = Console.ReadLine();
 
-                if (consoleChoiceString == null)
+                if (choiceString == null)
                 {
                     return;
                 }
 
-                string[] consoleChoice = consoleChoiceString.Split(" ");
+                string[] choiceParts = choiceString.Split(" ");
 
-                foreach(string choice in consoleChoice)
+                if (choiceParts[0] == "select")
                 {
-                    Console.WriteLine(choice);
+                    selectedPosition = selectPosition(choiceParts);
+                    Console.WriteLine($"Selected row: {selectedPosition.row}");
+                    Console.WriteLine($"Selected column: {selectedPosition.column}");
                 }
 
-                //switch (choice)
-                //{
-                //    case "help":
-                //        break;
-
-                //    case "select":
-                //        string test = choice.Substring(0, 4);
-                //        Console.WriteLine(test);
-                //        choice = null;
-                //        break;
-                //}
+                board.Draw(selectedPosition);
             }
+        }
+
+        static private Position selectPosition(string[] choiceParts)
+        {
+            Position position = new();
+            if (choiceParts.ElementAtOrDefault(1) == null)
+            {
+                Console.WriteLine("Select a row or position. Position can be selected as {row}.{column}");
+                string? positionString = Console.ReadLine();
+
+                if (positionString == null)
+                {
+                    return selectPosition(choiceParts);
+                }
+
+                string[] positionParts = positionString.Split(".");
+                position = getPosition(positionParts);
+
+            }
+            else
+            {
+                string[] positionParts = choiceParts[1].Split(".");
+                position = getPosition(positionParts);
+            }
+            return position;
+        }
+
+        static private Position getPosition(string[] positionParts)
+        {
+            Position position = new();
+            if (positionParts.ElementAtOrDefault(1) == null)
+            {
+                // User input only row
+                position.row = int.Parse(positionParts[0]);
+                Console.WriteLine("Select a column.");
+                position.column = getColumn();
+            }
+            else
+            {
+                // User input row and column
+                position.row = int.Parse(positionParts[0]);
+                position.column = int.Parse(positionParts[1]);
+            }
+            return position;
+        }
+
+        static private int getColumn()
+        {
+            string? columnString = Console.ReadLine();
+
+            if (columnString == null)
+            {
+                return getColumn();
+            }
+
+            return int.Parse(columnString);
         }
     }
 }

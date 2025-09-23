@@ -1,8 +1,10 @@
-﻿namespace Console_Checkers.Boards
+﻿using Console_Checkers.HelperClasses;
+
+namespace Console_Checkers.Boards
 {
     public interface IBoard
     {
-        public void Draw();
+        public void Draw(Position? selectedPosition = null);
         public void Reset();
         public bool CheckForWin();
 

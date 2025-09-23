@@ -1,4 +1,5 @@
-﻿using Console_Checkers.Teams;
+﻿using Console_Checkers.HelperClasses;
+using Console_Checkers.Teams;
 using Console_Checkers.Teams.Checkers;
 
 namespace Console_Checkers.Boards.Basic
@@ -16,7 +17,7 @@ namespace Console_Checkers.Boards.Basic
         CheckersWhite wTeam = new();
 
         public string Empty => "e";
-        public string EmptyDraw => " .";
+        public string EmptyDraw => ".";
 
         public void Reset()
         {
@@ -37,7 +38,7 @@ namespace Console_Checkers.Boards.Basic
             wTeam.Pieces = 20;
         }
 
-        public void Draw()
+        public void Draw(Position? selectedPosition = null)
         {
             Console.WriteLine("  0 1 2 3 4 5 6 7 8 9");
             string output = "";
@@ -46,21 +47,32 @@ namespace Console_Checkers.Boards.Basic
                 output += i;
                 for (int ii = 0; ii < board[i].Length; ii++)
                 {
+                    string trailingSpace = " ";
+                    if (
+                        selectedPosition != null
+                        && i == selectedPosition.row
+                        && ii == selectedPosition.column
+                    )
+                    {
+                        output += ">";
+                        trailingSpace = "";
+                    }
+
                     if (board[i][ii] == wTeam.piece)
                     {
-                        output += wTeam.pieceDraw;
+                        output += trailingSpace + wTeam.pieceDraw;
                     }
                     else if (board[i][ii] == bTeam.piece)
                     {
-                        output += bTeam.pieceDraw;
+                        output += trailingSpace + bTeam.pieceDraw;
                     }
                     else if (board[i][ii] == Empty)
                     {
-                        output += EmptyDraw;
+                        output += trailingSpace + EmptyDraw;
                     }
                     else
                     {
-                        output += " " + board[i][ii];
+                        output += board[i][ii];
                     }
                 }
                 output += "\n";

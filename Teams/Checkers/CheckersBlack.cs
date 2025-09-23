@@ -6,8 +6,8 @@
         public int Pieces { get; set; }
 
         public string piece = "b";
-        public string pieceDraw = " b";
+        public string pieceDraw = "b";
         public string king = "B";
-        public string kingDraw = " B";
+        public string kingDraw = "B";
     }
 }
