@@ -9,7 +9,6 @@ namespace Console_Checkers
         public static void Main()
         {
             CheckersBoard board = new();
-
             board.Draw();
 
             string? choiceString = null;
@@ -28,13 +27,38 @@ namespace Console_Checkers
 
                 if (choiceParts[0] == "select")
                 {
+                    Position? oldPosition = selectedPosition;
                     selectedPosition = selectPosition(choiceParts);
                     Console.WriteLine($"Selected row: {selectedPosition.row}");
                     Console.WriteLine($"Selected column: {selectedPosition.column}");
+                    //Check if it's legal to select this Position
+                    if (!checkLegalSelect(selectedPosition, board))
+                    {
+                        Console.WriteLine("Not a legal selection");
+                        selectedPosition = oldPosition;
+                    }
                 }
-
                 board.Draw(selectedPosition);
             }
+        }
+
+        static private bool checkLegalSelect(Position selectedPosition, CheckersBoard board)
+        {
+            if (board.board[selectedPosition.row][selectedPosition.column] == board.Empty)
+            {
+                return false;
+            }
+            if (board.currentTurn.Enemies != null)
+            {
+                foreach (string enemy in board.currentTurn.Enemies)
+                {
+                    if (board.board[selectedPosition.row][selectedPosition.column] == enemy)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         static private Position selectPosition(string[] choiceParts)

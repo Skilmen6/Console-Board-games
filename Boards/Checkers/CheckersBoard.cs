@@ -1,5 +1,4 @@
 ﻿using Console_Checkers.HelperClasses;
-using Console_Checkers.Teams;
 using Console_Checkers.Teams.Checkers;
 
 namespace Console_Checkers.Boards.Basic
@@ -8,13 +7,40 @@ namespace Console_Checkers.Boards.Basic
     {
         public CheckersBoard()
         {
+            bTeam = new CheckersTeam
+            {
+                Name = "Black",
+                Piece = "b",
+                PieceDraw = "b",
+                King = "B",
+                KingDraw = "B"
+            };
+            wTeam = new CheckersTeam
+            {
+                Name = "White",
+                Piece = "w",
+                PieceDraw = "w",
+                King = "W",
+                KingDraw = "W"
+            };
+
+            bTeam.Enemies = [
+                wTeam.Piece,
+                wTeam.King
+            ];
+            wTeam.Enemies = [
+                bTeam.Piece,
+                bTeam.King
+            ];
+            currentTurn = wTeam;
             Reset();
         }
 
         public string[][] board = [[]];
 
-        CheckersBlack bTeam = new();
-        CheckersWhite wTeam = new();
+        CheckersTeam bTeam;
+        CheckersTeam wTeam;
+        public CheckersTeam currentTurn;
 
         public string Empty => "e";
         public string EmptyDraw => ".";
@@ -22,16 +48,16 @@ namespace Console_Checkers.Boards.Basic
         public void Reset()
         {
             board = [
-                [Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece],
-                [bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty],
-                [Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece],
-                [bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty, bTeam.piece, Empty],
+                [Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece],
+                [bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty],
+                [Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece],
+                [bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty, bTeam.Piece, Empty],
                 [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
                 [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty],
-                [Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece],
-                [wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty],
-                [Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece],
-                [wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty, wTeam.piece, Empty],
+                [Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece],
+                [wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty],
+                [Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece],
+                [wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty, wTeam.Piece, Empty],
             ];
 
             bTeam.Pieces = 20;
@@ -58,13 +84,13 @@ namespace Console_Checkers.Boards.Basic
                         trailingSpace = "";
                     }
 
-                    if (board[i][ii] == wTeam.piece)
+                    if (board[i][ii] == wTeam.Piece)
                     {
-                        output += trailingSpace + wTeam.pieceDraw;
+                        output += trailingSpace + wTeam.PieceDraw;
                     }
-                    else if (board[i][ii] == bTeam.piece)
+                    else if (board[i][ii] == bTeam.Piece)
                     {
-                        output += trailingSpace + bTeam.pieceDraw;
+                        output += trailingSpace + bTeam.PieceDraw;
                     }
                     else if (board[i][ii] == Empty)
                     {
@@ -95,7 +121,7 @@ namespace Console_Checkers.Boards.Basic
             return false;
         }
 
-        public void CaptureChecks(ITeam currentTeam)
+        public void CaptureChecks(CheckersTeam currentTeam)
         {
 
         }
